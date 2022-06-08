@@ -3,8 +3,24 @@ UrbanEagle_VisionAI
 
 Let us open the learning eagle eye over cities to the public!
 
-Project Organization
-------------
+This model was initially developed during my participation at DSR (DataScienceRetreat Berlin) in Batch30.
+
+
+Model workflow and data-analysis
+-----------------------------------------
+
+1. Loading the raw data (training-data, test-data, labels) 
+2. Concatenate training- and test-data; 
+   Clean data e.g. convert str to int where applicable
+3. Encode data: reads in the values and the labels, applies target encoding and 
+   returns a dataframe which consists only of numeric columns.
+4. Model training: defin ML model and grid of attributes. Fit the model to the train values of each attribute set.
+   then choose best model as fitted model according to f1(micro) score.
+5. Compute predictions and generate the reports.
+
+
+Project Organization and folder structure
+-----------------------------------------
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
