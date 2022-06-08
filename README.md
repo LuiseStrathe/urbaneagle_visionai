@@ -1,7 +1,7 @@
 UrbanEagle_VisionAI
 ==============================
 
-Let's open the learning eagle eye over cities to the public!
+Let us open the learning eagle eye over cities to the public!
 
 Project Organization
 ------------
