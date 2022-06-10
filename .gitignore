@@ -75,6 +75,9 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
+# autokeras image regressor temps
+notebooks/image_regressor
+
 # exclude data from source control by default
 /data/
 
