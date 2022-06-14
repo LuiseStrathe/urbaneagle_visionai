@@ -101,14 +101,15 @@ def render_history(history, path_model):
 def ide_adj_pred(probabilities, tile_info, path_model):
 
     # optimal threshold
-    num_orig_labels = len(np.where(tile_info[2]==1))
+    num_orig_labels = tile_info[:, 2].sum()
+    threshold = 0
     for thresh in np.arange(0.1, 0.5, 0.01):
         thresh = round(thresh, 2)
         num_pred_labels = len(np.where(probabilities > thresh)[0])
+        print(f"   Thresh: {thresh}, # pred labels={num_pred_labels} (<{num_orig_labels})")
         if num_pred_labels < num_orig_labels:
             threshold = thresh
             break
-    print(f"\nOptimal threshold: {threshold}")
 
     # save predictions and tile_info
     predictions = np.array([1 if x >= threshold else 0 for x in probabilities])

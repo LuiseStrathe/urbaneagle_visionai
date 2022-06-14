@@ -18,14 +18,16 @@ raw_image_number = 0
     ## in pixel:
 tile_size = 25
     ## in pixel per side, expands small tile to large tile:
-border = 15
+border = 2
+    ## max number of neg per pos tiles in training set:
+max_neg_per_true = 2
 
 # model specification
 path_model = '../models/ide_options/'
-model_name = "ide_02"
+model_name = "ide_03"
 path_model = path_model + model_name + '/'
-batch_size = 50
-epochs = 20
+batch_size = 100
+epochs = 2
 
 
 # -----------------------SETUP-----------------------#
@@ -37,8 +39,6 @@ import tensorflow as tf
 
 from src.data.ide_loader \
     import images_loader
-from src.visualization.tree_vizualizations \
-    import show_pred_tiles
 from src.models.identification_model \
     import make_model_ide, train_ide, render_history, perf_measure, ide_adj_pred
 
@@ -51,7 +51,7 @@ dataset_train, dataset_validate, \
             image, labels, orig_image = \
             images_loader(
                 path_raw_data, name_raw_data, raw_image_number, \
-                tile_size, border, batch_size, path_model)
+                tile_size, border, batch_size, path_model, max_neg_per_true)
 
 
 # ----------------TRAINING-------------------#
@@ -80,8 +80,6 @@ print("\nRunning evaluation")
 render_history(history, path_model)
 perf_measure(tile_info, predictions)
 
-# show results
-show_pred_tiles(predictions, tile_info, path_model, name_raw_data)
 tf.keras.backend.clear_session()
 
 

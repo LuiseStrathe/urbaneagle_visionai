@@ -6,6 +6,7 @@ matplotlib
 tqdm
 tensorflow
 keras
+Augmentor
 
 
 # external requirements

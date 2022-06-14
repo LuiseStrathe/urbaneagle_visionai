@@ -188,7 +188,7 @@ def expand_tiles(tile_info, tile_dims, border, image, tile_size):
     return tiles_large
 
 
-def make_train_set(tiles, tile_labels, tile_size, border, batch_size):
+def make_train_set(tiles_large, tile_labels, tile_size, border, batch_size):
 
     # define the training set
     tile_size = (tile_size + 2 * border)
@@ -201,9 +201,9 @@ def make_train_set(tiles, tile_labels, tile_size, border, batch_size):
     print(f"There are {num_val_tiles} tiles in the validation set.")
 
     # split into training and validation set
-    train_tiles = tiles[:int(num_tiles*train_ratio)]
+    train_tiles = tiles_large[:int(num_tiles*train_ratio)]
     train_labels = tile_labels[:int(num_tiles*train_ratio)]
-    val_tiles = tiles[int(num_tiles*train_ratio):]
+    val_tiles = tiles_large[int(num_tiles*train_ratio):]
     val_labels = tile_labels[int(num_tiles*train_ratio):]
     print(f"Training set: {train_tiles.shape} - ({train_ratio} share of all tiles)")
     print(f"Validation set: {val_tiles.shape}")
