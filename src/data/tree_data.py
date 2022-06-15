@@ -16,7 +16,7 @@ from matplotlib import pyplot as plt
 
 #------------------------FUNCTIONS-----------------------#
 
-def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model):
+def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, path_raw_json):
 
     print("\n---------"
           f"\nImporting image: {name_raw_data} (exact item in upload: {raw_image_number})")
@@ -34,7 +34,7 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model):
     image /= 255.0
 
     # load the label-points for the picture from label studio
-    with open(path_raw_data+name_raw_data+'.json') as json_file:
+    with open(path_raw_json+'.json') as json_file:
         json_load = json.load(json_file)
 
     # select data
@@ -98,9 +98,9 @@ def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
     tile_dims = (num_tiles, num_ver, num_hor)
     tile_info_initial = np.zeros((num_tiles, 8)) # store information about the tiles
     ## tile_info:
-        ### (tile row, tile column, true_label, probability,
-        ### position horizontal, position vertical  // (top left corner of tile in the image)
-        ### vertical label position, horizontal label position within the (small) tile
+        ### [0:3] tile row, tile column, [true_label], probability,
+        ### [4:5] position horizontal, position vertical  // (top left corner of tile in the image)
+        ### [6:7] vertical label position, horizontal label position within the (small) tile
 
     # create tiles
     for i in range(num_ver):
@@ -124,7 +124,6 @@ def label_tiles(
         labels, tile_info_initial, tile_size,
         tile_dims, border, name_raw_data, path_model):
 
-    print(  f"\nLabeling for image {name_raw_data}")
     # prepare variables
     num_tiles = tile_dims[0]
     max_v = int(tile_size * tile_dims[1] - 2 * border)
@@ -175,7 +174,6 @@ def label_tiles(
 
 def expand_tiles(tile_info, tile_dims, border, image, tile_size):
 
-    print("\nExpanding tiles as input for the model")
     image = np.array(image)
     tile_size_large = tile_size + 2 * border
     tiles_large = np.zeros((tile_dims[0], tile_size_large, tile_size_large, 3))

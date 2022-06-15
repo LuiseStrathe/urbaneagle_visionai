@@ -101,12 +101,16 @@ def render_history(history, path_model):
 def ide_adj_pred(probabilities, tile_info, path_model):
 
     # optimal threshold
-    num_orig_labels = tile_info[:, 2].sum()
-    threshold = 0
-    for thresh in np.arange(0.1, 0.5, 0.01):
+    num_orig_pos = len(np.where(tile_info[:, 2] == 1)[0])
+    print(  f"Number of tiles: {tile_info.shape[0]}"
+            f"\nNumber of true pos tiles for evaluation: {num_orig_pos}")
+    threshold = 0.1
+    for thresh in np.arange(0., 1., 0.01):
         thresh = round(thresh, 2)
         num_pred_labels = len(np.where(probabilities > thresh)[0])
-        if num_pred_labels < num_orig_labels:
+        print(f"Thresh: {thresh}"
+              f"\nNumber of predicted labels: {num_pred_labels}")
+        if num_pred_labels < num_orig_pos:
             threshold = thresh
             break
 
@@ -116,12 +120,14 @@ def ide_adj_pred(probabilities, tile_info, path_model):
     np.savez(f"{path_model}saved_training_info.npz",
              threshold=threshold, predictions=predictions, tile_info=tile_info)
 
+    print("\nOptimal threshold:", threshold[0])
+
     return threshold, predictions
 
 
 def perf_measure(tile_info, predictions):
 
-    y_hat=predictions
+    y_hat = predictions
     y_actual = tile_info[:, 2]
     TP = 0
     FP = 0

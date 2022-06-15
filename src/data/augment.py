@@ -6,7 +6,7 @@ This script will add an augmented version of an image.
 
 image_path = '../../data/raw/tree_detection/Potsdam/'
 image_name = 'Potsdam_01'
-suffix = '_aug_03'
+suffix = '_aug_04'
 
 
 #----------------------IMPORTS---------------------------#

@@ -20,7 +20,8 @@ def show_true_tiles(tile_info, name_raw_data, path):
               f"The shape of the tiled picture is {tiles_show.shape}\n"
               f"{tile_info[:, 2].sum()} tiles are labeled as trees.")
     plt.show()
-    plt.savefig(f'{path}figures/true_tiles.png')
+    if path is not None:
+        plt.savefig(f'{path}figures/true_tiles.png')
     plt.close()
     pass
 
@@ -32,7 +33,8 @@ def show_pred_tiles(predictions, tile_info, path_model, name_raw_data):
     num_hor = int(tile_info[:, 1].max()) + 1
     tiles_show = predictions.reshape(num_ver, num_hor)
     plt.imshow(tiles_show, cmap='gray')
-    plt.savefig(f'{path_model}figures/pred_tiles.png')
+    if path_model is not None:
+        plt.savefig(f'{path_model}figures/pred_tiles.png')
     num_pos = (predictions > 0).sum()
     plt.title(f"Predicted tiles of image {name_raw_data}\n"
               f"{num_pos} out of {len(predictions)} tiles we predicted as with trees.\n"
