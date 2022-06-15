@@ -6,7 +6,6 @@ These functions load and transform data for tree identification.
 
 import numpy as np
 import json
-import os
 
 import tensorflow as tf
 from keras.utils import load_img

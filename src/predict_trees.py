@@ -11,6 +11,8 @@ Before start, check the initialization to modify the parameters.
 # info about inputs: images and labels
 image_path = '../data/raw/tree_detection/Potsdam/Potsdam_01.jpg'
 name = "first_pred"
+report_path = '../reports/'
+report_path = report_path + name + '/'
 
 ## in pixel:
 tile_size = 25
@@ -21,7 +23,7 @@ border = 15
 path_model_ide = '../models/'
 model_name_ide = "ide_55_th97"
 path_model_ide = path_model_ide + model_name_ide + '/'
-threshold_ide = 0.97
+threshold_ide = 0.99
 
 path_model_pos = '../models/'
 model_name_pos = "pos"
@@ -38,6 +40,10 @@ from src.data.tree_loader \
     import *
 from src.data.tree_data \
     import *
+from src.models.identification_model \
+    import *
+from src.visualization.tree_vizualizations \
+    import *
 
 
 # ----------------DATA LOADING-----------------------#
@@ -47,7 +53,7 @@ print("\n--------------------------------------------"
 # load image
 image, tiles_large, tiles, tile_info = \
     image_load_tiles(
-        image_path, tile_size, border, name)
+        image_path, tile_size, border, name, report_path)
 
 
 # ----------------------IDENTIFICATION--------------#
@@ -59,7 +65,8 @@ model_ide = tf.keras.models.load_model(path_model_ide)
 probabilities_ide = model_ide.predict(tiles_large)
 tile_info[:, 3] = probabilities_ide[:, 0]
 predictions_ide = np.array([1 if x >= threshold_ide else 0 for x in probabilities_ide])
-show_pred_tiles(predictions_ide, tile_info, path_model=None, name_raw_data=name)
+show_pred_tiles(predictions_ide, tile_info, path_model=report_path, name_raw_data=name)
+
 
 # ------------------POSITIONING------------------#
 print("\n--------------------------------------------"
@@ -69,7 +76,7 @@ print("\n--------------------------------------------"
 tiles_pos = []
 tiles_pos_location = []
 for tree in range(predictions_ide.shape[0]):
-    if predictions_ide[tree] != 1:
+    if predictions_ide[tree] == 1:
         tiles_pos.append(tiles_large[tree, :])
         # this list contains reference to original tile :
         tiles_pos_location.append(tree)
@@ -80,11 +87,12 @@ tiles_pos_location = np.array(tiles_pos_location)
 model_pos = tf.keras.models.load_model(path_model_pos)
 pred_pos = model_pos.predict(tiles_pos)
 
-
 # get abs pixel locations of identified trees
 pixels_pred, tile_info = \
     make_pixels_predicted(
         pos_list=tiles_pos_location, pred_pos_tiles=pred_pos, tile_info=tile_info, border=border)
+
+draw_img_with_pixels(image, pixels_pred, report_path)
 
 # --------------------REPORTS------------------------#
 print("\n--------------------------------------------"

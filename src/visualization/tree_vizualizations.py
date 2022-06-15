@@ -45,3 +45,28 @@ def show_pred_tiles(predictions, tile_info, path_model, name_raw_data):
     pass
 
 
+def draw_img_with_pixels(image, pixels, path=None):
+
+    color = [255./255, 1./255, 130./255]
+
+    # draw pixels into image
+    for pixel in pixels:
+        # central pixel
+        ver_pixel = pixel[0]
+        hor_pixel = pixel[1]
+        #image[ver_pixel, hor_pixel] = color
+
+        # frame
+        expand = 6
+        for horizontal in range(hor_pixel-expand, hor_pixel+expand):
+            image[(ver_pixel-expand), (horizontal)] = color
+            image[(ver_pixel+expand), (horizontal)] = color
+        for vertical in range(ver_pixel-expand, ver_pixel+expand):
+            image[(vertical), (hor_pixel-expand)] = color
+            image[(vertical), (hor_pixel+expand)] = color
+
+    plt.imshow(image)
+    plt.title(f"Number of predicted trees: {len(pixels)}")
+    if path is not None:
+        plt.imsave(path+'images/image_with_pixels.jpg', image)
+    pass

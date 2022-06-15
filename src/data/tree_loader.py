@@ -3,19 +3,20 @@ These functions load and transform data for tree prediction.
 """
 
 #----------------------IMPORTS---------------------------#
+import matplotlib.pyplot as plt
 
 from src.data.tree_data import *
-from src.visualization.tree_vizualizations import *
+from src.helper.helper import make_directories
 
 
 #------------------------FUNCTIONS-----------------------#
 
 
 def image_load_tiles(
-        image_path, tile_size, border, name):
+        image_path, tile_size, border, name, report_path):
 
     # prepare directories
-    #make_directories(path_model)
+    make_directories(report_path)
 
     # load the image
     image = load_img(image_path)
@@ -25,12 +26,13 @@ def image_load_tiles(
     # scale pixel values to [0, 1]
     image = image.astype('float32')
     image /= 255.0
+    plt.imshow(image)
+    plt.imsave(report_path+'images/image.jpg', image)
 
     # SLICE to tiles (=small tiles = moin tile reference)
     tiles, tile_info, tile_dims = \
         make_tiles_small(
             image, name, i_width, i_height, tile_size, border)
-
     ## tile_info:
         ### [0:3] tile row, tile column, [true_label], [probability],
         ### [4:5] position horizontal, position vertical  // (top left corner of tile in the image)
@@ -40,7 +42,7 @@ def image_load_tiles(
     tiles_large = \
         expand_tiles(tile_info, tile_dims, border, image, tile_size)
 
-    return  image, tiles_large, tiles, tile_info
+    return image, tiles_large, tiles, tile_info
 
 
 def make_pixels_predicted(
@@ -53,10 +55,11 @@ def make_pixels_predicted(
     # Adjust the predicted coordinates to the original image
     for pixel in range(len(pos_list)):
         tile_num = pos_list[pixel]
-        pixels_pred[pixel, 0] += tile_info[tile_num, 4] - border
-        pixels_pred[pixel, 1] += tile_info[tile_num, 5] - border
+        pixels_pred[pixel, 0] += tile_info[tile_num, 4]
+        pixels_pred[pixel, 1] += tile_info[tile_num, 5] 
 
     pixels_pred = pixels_pred.astype(int)
+    print(f"pixels_pred: {pixels_pred.shape}")
 
     return pixels_pred, tile_info
 

@@ -6,6 +6,7 @@ These functions load and transform data for tree identification.
 
 from src.data.tree_data import *
 from src.visualization.tree_vizualizations import *
+from src.helper.helper import make_directories
 
 
 #------------------------FUNCTIONS-----------------------#
@@ -43,17 +44,6 @@ def balance_tiles(
     return tiles_input, labels_input
 
 
-def make_directories(
-        path_model):
-    if not os.path.exists(f"{path_model}"):
-        os.mkdir(f"{path_model}")
-    if not os.path.exists(f"{path_model}/figures"):
-        os.mkdir(f"{path_model}/figures")
-
-    if not os.path.exists(f"{path_model}/images"):
-        os.mkdir(f"{path_model}/images")
-
-
 def image_label_load(
         path_raw_data, name_raw_image, raw_image_number, path_model, path_raw_json,
         tile_size, border):
@@ -79,7 +69,6 @@ def image_label_load(
         expand_tiles(x_tile_info, tile_dims, border, image, tile_size)
 
     return x_tiles_large, x_labels_input, x_tile_info
-
 
 
 def images_labels_loader(
