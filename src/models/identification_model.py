@@ -106,7 +106,6 @@ def ide_adj_pred(probabilities, tile_info, path_model):
     for thresh in np.arange(0.1, 0.5, 0.01):
         thresh = round(thresh, 2)
         num_pred_labels = len(np.where(probabilities > thresh)[0])
-        print(f"   Thresh: {thresh}, # pred labels={num_pred_labels} (<{num_orig_labels})")
         if num_pred_labels < num_orig_labels:
             threshold = thresh
             break
@@ -130,13 +129,13 @@ def perf_measure(tile_info, predictions):
     FN = 0
 
     for i in range(len(y_hat)):
-        if y_actual[i]==y_hat[i]==1:
+        if y_actual[i] == y_hat[i] == 1:
            TP += 1
-        if y_hat[i]==1 and y_actual[i]!=y_hat[i]:
+        if y_hat[i] == 1 and y_actual[i] != y_hat[i]:
            FP += 1
-        if y_actual[i]==y_hat[i]==0:
+        if y_actual[i] == y_hat[i] == 0:
            TN += 1
-        if y_hat[i]==0 and y_actual[i]!=y_hat[i]:
+        if y_hat[i] == 0 and y_actual[i] != y_hat[i]:
            FN += 1
 
     num_tiles = len(y_actual)

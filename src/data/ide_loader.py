@@ -4,7 +4,7 @@ These functions load and transform data for tree identification.
 
 #----------------------IMPORTS---------------------------#
 
-import Augmentor
+#import Augmentor
 import matplotlib.pyplot as plt
 
 from src.data.tree_data import *
