@@ -7,9 +7,33 @@ These functions load and transform data for tree identification.
 from src.data.tree_data import *
 from src.visualization.tree_vizualizations import *
 from src.helper.helper import make_directories
-
+from tqdm import tqdm
 
 #------------------------FUNCTIONS-----------------------#
+
+def input_creator(targets, num_aug, path_input):
+
+    path_raw_data = ([])
+    path_raw_json = ([])
+    name_raw_image = ([])
+    raw_image_number = ([])
+
+    for target, number in targets:
+        image_path = path_input + target[:-3] + '/'
+
+        [path_raw_data.append(image_path)
+            for i in range(num_aug + 1)]
+        [path_raw_json.append(image_path + target)
+            for i in range(num_aug + 1)]
+        name_raw_image.append(target)
+        [name_raw_image.append(target + '_aug_0' + str(i + 1))
+            for i in range(num_aug)]
+        [raw_image_number.append(number)
+            for i in range(num_aug + 1)]
+
+
+    return path_raw_data, path_raw_json, name_raw_image, raw_image_number
+
 
 def balance_tiles(
         tiles_large, tile_labels, max_neg_per_true):

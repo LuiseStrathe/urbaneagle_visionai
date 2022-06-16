@@ -8,6 +8,7 @@ import numpy as np
 import json
 
 import tensorflow as tf
+import tqdm as tqdm
 from keras.utils import load_img
 from keras.utils import img_to_array
 from matplotlib import pyplot as plt
@@ -37,6 +38,7 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, pat
         json_load = json.load(json_file)
 
     # select data
+    print("load_labels...")
     json_load = json_load[raw_image_number]["annotations"][0]["result"]
     labels_x = ([])
     labels_y = ([])
@@ -57,7 +59,8 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, pat
 
     # show image with labels
     plt.imshow(orig_image)
-    for tree in range(labels[:,0].shape[0]):
+    print("show image ...")
+    for tree in range(labels[:, 0].shape[0]):
         plt.plot(labels[tree, 1], labels[tree, 0], '+', color="purple", markersize=5)
     plt.title(f"{name_raw_data} image and original tree labels\n"
               f"   There are {labels_unscaled[:,0].shape} labeled trees in the picture"
@@ -113,7 +116,7 @@ def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
             # add tile to array
             tiles[tile_num] = tile
             # store location ot tiles:
-            tile_info_initial[tile_num] = (i,j,0,0,v_start, h_start, 0, 0)
+            tile_info_initial[tile_num] = (i, j, 0, 0, v_start, h_start, 0, 0)
 
     print(f"   Tiles created: {tiles.shape}.\n")
     return tiles, tile_info_initial, tile_dims

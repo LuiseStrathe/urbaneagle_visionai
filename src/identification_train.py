@@ -6,27 +6,20 @@ INFO
 Before start, check the initialization to modify the parameters.
 """
 
-# ------------INITIALIZATION----  CHANGE ME  ----#
+# ------------INITIALIZATION----  CHANGE ME  -------#
 
-# info about inputs: images and labels
-path_raw_data = (['../data/raw/tree_detection/Potsdam/',
-                  '../data/raw/tree_detection/Potsdam/',
-                  '../data/raw/tree_detection/Potsdam/',
-                  '../data/raw/tree_detection/Potsdam/',
-                  '../data/raw/tree_detection/Potsdam/'])
-path_raw_json = (['../data/raw/tree_detection/Potsdam/Potsdam_01',
-                  '../data/raw/tree_detection/Potsdam/Potsdam_01',
-                  '../data/raw/tree_detection/Potsdam/Potsdam_01',
-                  '../data/raw/tree_detection/Potsdam/Potsdam_01',
-                  '../data/raw/tree_detection/Potsdam/Potsdam_01'])
-name_raw_image = (['Potsdam_01',
-                   'Potsdam_01_aug_01',
-                   'Potsdam_01_aug_02',
-                   'Potsdam_01_aug_03',
-                   'Potsdam_01_aug_04'])
-## number the relevant image in the labeled data:
-raw_image_number = ([0, 0, 0, 0, 0])
+# Input specification:
+## path with all raw data
+path_input = '../data/raw/tree_detection/'
+## targets: Name of specific image, position in json to be considered
+targets = (["Potsdam_01", 0],
+           ["Dresden_04", 0],
+           ["Dresden_05", 0],
+           ["Dresden_06", 0])
+## number of augmented versions used for each image/target:
+num_aug = 3
 
+# Processing specification:
 ## in pixel:
 tile_size = 25
 ## in pixel per side, expands small tile to large tile:
@@ -34,11 +27,11 @@ border = 15
 ## max number of neg per pos tiles in training set:
 max_neg_per_true = 3
 
-# model specification
+# Model specification:
 path_model = '../models/ide_options/'
-model_name = "ide_03"
+model_name = "ide_04"
 path_model = path_model + model_name + '/'
-batch_size = 40
+batch_size = 30
 epochs = 25
 
 # -----------------------SETUP-----------------------#
@@ -49,12 +42,22 @@ print("\n--------------------------------------------"
 import tensorflow as tf
 
 from src.data.ide_loader \
-    import images_labels_loader
+    import images_labels_loader, input_creator
 from src.models.identification_model \
     import make_model_ide, train_ide, render_history, perf_measure, ide_adj_pred
 
 
 # ----------------DATA PREPARATION-----------#
+
+# define data paths
+path_raw_data, path_raw_json, name_raw_image, raw_image_number =\
+    input_creator(
+        targets, num_aug, path_input)
+print(f"targets: {targets}"
+      f"\npath_raw_data: {path_raw_data}"
+      f"\npath_raw_json: {path_raw_json}"
+      f"\nname_raw_image: {name_raw_image}")
+
 
 # loading images and labels and concatenate to training set
 dataset_train, dataset_validate, tiles_large, tile_info = \

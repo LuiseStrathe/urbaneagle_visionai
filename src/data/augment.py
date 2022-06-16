@@ -4,8 +4,8 @@ This script will add an augmented version of an image.
 
 #----------------------INPUTS----------------------------#
 
-image_path = '../../data/raw/tree_detection/Potsdam/'
-image_name = 'Potsdam_01'
+image_path = '../../data/raw/tree_detection/Dresden/'
+image_name = 'Dresden_06'
 suffix = '_aug_04'
 
 
@@ -36,6 +36,6 @@ transform = A.Compose(
 augmented_image = transform(image=image)['image']
 img = Image.fromarray(augmented_image, 'RGB')
 img.save(f'{image_path}{image_name}{suffix}.jpg')
-print(augmented_image.shape)
+print("----- done -----")
 
 
