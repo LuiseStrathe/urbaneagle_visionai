@@ -12,12 +12,12 @@ Before start, check the initialization to modify the parameters.
 ## path with all raw data
 path_input = '../data/raw/tree_detection/'
 ## targets: Name of specific image, position in json to be considered
-targets = (["Potsdam_01", 0],
-           ["Dresden_04", 0],
-           ["Dresden_05", 0],
-           ["Dresden_06", 0])
+targets = (["Potsdam_01", 3, "labels_01.json"],
+           ["Dresden_04", 1, "labels_01.json"],
+           ["Dresden_05", 0, "labels_01.json"],
+           ["Dresden_06", 2, "labels_01.json"])
 ## number of augmented versions used for each image/target:
-num_aug = 3
+num_aug = 1
 
 # Processing specification:
 ## in pixel:
@@ -32,7 +32,7 @@ path_model = '../models/ide_options/'
 model_name = "ide_04"
 path_model = path_model + model_name + '/'
 batch_size = 30
-epochs = 25
+epochs = 2
 
 # -----------------------SETUP-----------------------#
 
@@ -45,6 +45,8 @@ from src.data.ide_loader \
     import images_labels_loader, input_creator
 from src.models.identification_model \
     import make_model_ide, train_ide, render_history, perf_measure, ide_adj_pred
+from src.helper.helper \
+    import get_resident_set_size
 
 
 # ----------------DATA PREPARATION-----------#
@@ -53,11 +55,8 @@ from src.models.identification_model \
 path_raw_data, path_raw_json, name_raw_image, raw_image_number =\
     input_creator(
         targets, num_aug, path_input)
-print(f"targets: {targets}"
-      f"\npath_raw_data: {path_raw_data}"
-      f"\npath_raw_json: {path_raw_json}"
-      f"\nname_raw_image: {name_raw_image}")
-
+print(f"\nInput Images: {targets}\n"
+      f"path json: {path_raw_json}\n")
 
 # loading images and labels and concatenate to training set
 dataset_train, dataset_validate, tiles_large, tile_info = \
@@ -65,7 +64,7 @@ dataset_train, dataset_validate, tiles_large, tile_info = \
         path_raw_data, name_raw_image, raw_image_number, path_raw_json,\
         tile_size, border, batch_size, path_model, max_neg_per_true)
 
-
+    
 # ----------------TRAINING-------------------#
 
 print("\n--------------------------------------------"

@@ -108,8 +108,7 @@ def ide_adj_pred(probabilities, tile_info, path_model):
     for thresh in np.arange(0., 1., 0.01):
         thresh = round(thresh, 2)
         num_pred_labels = len(np.where(probabilities > thresh)[0])
-        print(f"Thresh: {thresh}"
-              f"\nNumber of predicted labels: {num_pred_labels}")
+
         if num_pred_labels < num_orig_pos:
             threshold = thresh
             break

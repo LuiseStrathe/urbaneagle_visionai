@@ -4,10 +4,12 @@ These functions load and transform data for tree identification.
 
 #----------------------IMPORTS---------------------------#
 
+import gc
+
 from src.data.tree_data import *
 from src.visualization.tree_vizualizations import *
 from src.helper.helper import make_directories
-from tqdm import tqdm
+
 
 #------------------------FUNCTIONS-----------------------#
 
@@ -18,18 +20,18 @@ def input_creator(targets, num_aug, path_input):
     name_raw_image = ([])
     raw_image_number = ([])
 
-    for target, number in targets:
+    for target, number, json in targets:
         image_path = path_input + target[:-3] + '/'
 
         [path_raw_data.append(image_path)
-            for i in range(num_aug + 1)]
-        [path_raw_json.append(image_path + target)
-            for i in range(num_aug + 1)]
+         for i in range(num_aug + 1)]
+        [path_raw_json.append(path_input + json)
+         for i in range(num_aug + 1)]
         name_raw_image.append(target)
         [name_raw_image.append(target + '_aug_0' + str(i + 1))
-            for i in range(num_aug)]
+         for i in range(num_aug)]
         [raw_image_number.append(number)
-            for i in range(num_aug + 1)]
+         for i in range(num_aug + 1)]
 
 
     return path_raw_data, path_raw_json, name_raw_image, raw_image_number
@@ -73,12 +75,12 @@ def image_label_load(
         tile_size, border):
 
     # LOAD image and labels
-    image, labels, orig_image, labels_unscaled, i_width, i_height = \
+    image, labels, labels_unscaled, i_width, i_height = \
         import_trees(
             path_raw_data, name_raw_image, raw_image_number, path_model, path_raw_json)
 
     # SLICE to tiles (=small tiles = moin tile reference)
-    tiles, tile_info_initial, tile_dims = \
+    tile_info_initial, tile_dims = \
         make_tiles_small(
             image, name_raw_image, i_width, i_height, tile_size, border)
 
@@ -86,11 +88,20 @@ def image_label_load(
     x_tile_info, x_labels_input = \
         label_tiles(
             labels, tile_info_initial, tile_size, tile_dims, border, name_raw_image, path_model)
-    show_true_tiles(x_tile_info, name_raw_image, path_model)
+    show_true_tiles(
+        x_tile_info, name_raw_image, path_model)
+
+    # discard unnecessary data
+    del labels, labels_unscaled, tile_info_initial
+    gc.collect()
 
     # EXPAND tiles to large tiles for the model as input
     x_tiles_large = \
         expand_tiles(x_tile_info, tile_dims, border, image, tile_size)
+
+    # discard unnecessary data
+    del image
+    gc.collect()
 
     return x_tiles_large, x_labels_input, x_tile_info
 
@@ -141,6 +152,12 @@ def images_labels_loader(
     dataset_train, dataset_validate = \
         make_train_set(
             tiles_input, labels_input, tile_size, border, batch_size)
+
+    # discard unnecessary data
+    del labels_input, tiles_input, idx
+    del x_tiles_large, x_labels_input, x_tile_info
+    gc.collect()
+
 
     return  dataset_train, dataset_validate, \
             tiles_large, tile_info

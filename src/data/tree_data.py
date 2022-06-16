@@ -13,6 +13,8 @@ from keras.utils import load_img
 from keras.utils import img_to_array
 from matplotlib import pyplot as plt
 
+from src.helper.helper import get_resident_set_size
+
 
 #------------------------FUNCTIONS-----------------------#
 
@@ -34,11 +36,10 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, pat
     image /= 255.0
 
     # load the label-points for the picture from label studio
-    with open(path_raw_json+'.json') as json_file:
+    with open(path_raw_json) as json_file:
         json_load = json.load(json_file)
 
     # select data
-    print("load_labels...")
     json_load = json_load[raw_image_number]["annotations"][0]["result"]
     labels_x = ([])
     labels_y = ([])
@@ -58,26 +59,26 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, pat
     # ---------------------INFO-------------------------#
 
     # show image with labels
-    plt.imshow(orig_image)
-    print("show image ...")
+    plt.imshow(image)
     for tree in range(labels[:, 0].shape[0]):
         plt.plot(labels[tree, 1], labels[tree, 0], '+', color="purple", markersize=5)
     plt.title(f"{name_raw_data} image and original tree labels\n"
               f"   There are {labels_unscaled[:,0].shape} labeled trees in the picture"
               f"\n   The image size is {i_height}x{i_width} pixels."
               f"\n   The {len(labels_x)} data points are distributed along the respective axis as follows:")
-    plt.savefig(f'{path_model}figures/img_w_labels.png')
+    plt.savefig(f'{path_model}figures/img_w_labels_{name_raw_data}.png')
     plt.show()
     plt.close()
 
     # check label distribution in histogram
     plt.hist((labels[:, 1]), bins=200)
     plt.hist((labels[:, 0]), bins=200)
-    plt.title("Label distribution along each axis:")
-    plt.savefig(f'{path_model}figures/label_distribution.png')
+    plt.title(f"{name_raw_data}: Label distribution along each axis:")
+    plt.savefig(f'{path_model}figures/label_distribution_{name_raw_data}.png')
     plt.show()
+    plt.close()
 
-    return image, labels, orig_image, labels_unscaled, i_width, i_height
+    return image, labels, labels_unscaled, i_width, i_height
 
 
 def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
@@ -119,7 +120,7 @@ def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
             tile_info_initial[tile_num] = (i, j, 0, 0, v_start, h_start, 0, 0)
 
     print(f"   Tiles created: {tiles.shape}.\n")
-    return tiles, tile_info_initial, tile_dims
+    return tile_info_initial, tile_dims
 
 
 def label_tiles(
@@ -167,7 +168,7 @@ def label_tiles(
               f"   Tiles labeled as with tree: {tile_labels.sum()}\n"
               f"   This is {tile_labels.sum() / tile_labels.shape[0] * 100}% of the tiles.\n"
               )
-    plt.savefig(f'{path_model}figures/info_import.png')
+    plt.savefig(f'{path_model}figures/info_import_{name_raw_data}.png')
     plt.show()
     plt.close()
 
@@ -185,6 +186,7 @@ def expand_tiles(tile_info, tile_dims, border, image, tile_size):
         h_start = int(tile_info[tile, 5] - border)
         tile_large = image[v_start:v_start+tile_size_large, h_start:h_start+tile_size_large, :]
         tiles_large[tile] = tile_large
+
     return tiles_large
 
 
