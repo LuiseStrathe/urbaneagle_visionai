@@ -76,8 +76,8 @@ target/
 .ipynb_checkpoints/
 
 # autokeras image regressor temps
-notebooks/image_regressor
-models/ide_options
+notebooks/image_regressor/
+models/ide_options/
 models/tmp
 
 # exclude data from source control by default
