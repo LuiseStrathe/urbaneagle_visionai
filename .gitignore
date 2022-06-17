@@ -77,6 +77,8 @@ target/
 
 # autokeras image regressor temps
 notebooks/image_regressor
+models/ide_options
+models/tmp
 
 # exclude data from source control by default
 
