@@ -134,7 +134,12 @@ def images_labels_loader(
             labels_input = np.concatenate((labels_input, x_labels_input), axis=0)
             tile_info = np.concatenate((tile_info, x_tile_info), axis=0)
 
+    del x_tiles_large, x_labels_input, x_tile_info
     tiles_input = tiles_large
+    np.save(path_model + 'tiles_large', tiles_large)
+    del tiles_large
+    gc.collect()
+
 
     # ----------------TRAINING SET------------------#
 
@@ -155,9 +160,7 @@ def images_labels_loader(
 
     # discard unnecessary data
     del labels_input, tiles_input, idx
-    del x_tiles_large, x_labels_input, x_tile_info
     gc.collect()
 
 
-    return  dataset_train, dataset_validate, \
-            tiles_large, tile_info
+    return  dataset_train, dataset_validate, tile_info

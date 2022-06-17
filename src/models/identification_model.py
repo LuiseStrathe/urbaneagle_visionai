@@ -12,7 +12,7 @@ from keras import models, layers, optimizers
 #------------------------FUNCTIONS-----------------------#
 
 
-def make_model_ide(tile_size, border, batch_size):
+def make_model_ide(tile_size, border):
 
     tile_size = tile_size + 2 * border
 
@@ -46,7 +46,7 @@ def make_model_ide(tile_size, border, batch_size):
         metrics=metrics,
         )
 
-    return model, metrics
+    return model
 
 
 def train_ide(model_name, model, dataset_train, dataset_validate, epochs, path_model):
@@ -116,8 +116,11 @@ def ide_adj_pred(probabilities, tile_info, path_model):
     # save predictions and tile_info
     predictions = np.array([1 if x >= threshold else 0 for x in probabilities])
     threshold = np.array([threshold])
-    np.savez(f"{path_model}saved_training_info.npz",
-             threshold=threshold, predictions=predictions, tile_info=tile_info)
+    #np.savez(f"{path_model}saved_training_info.npz",
+    #         threshold=threshold, predictions=predictions, tile_info=tile_info)
+    np.safe(path_model + 'tile_info', tile_info)
+    np.safe(path_model + 'predictions', predictions)
+    np.safe(path_model + 'predictions', threshold)
 
     print("\nOptimal threshold:", threshold[0])
 

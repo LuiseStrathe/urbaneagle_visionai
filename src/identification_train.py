@@ -32,7 +32,7 @@ path_model = '../models/ide_options/'
 model_name = "ide_04"
 path_model = path_model + model_name + '/'
 batch_size = 30
-epochs = 2
+epochs = 1
 
 # -----------------------SETUP-----------------------#
 
@@ -40,13 +40,13 @@ print("\n--------------------------------------------"
       "\nStart training of IDENTIFICATION MODEL!")
 
 import tensorflow as tf
+import numpy as np
+import gc
 
 from src.data.ide_loader \
     import images_labels_loader, input_creator
 from src.models.identification_model \
     import make_model_ide, train_ide, render_history, perf_measure, ide_adj_pred
-from src.helper.helper \
-    import get_resident_set_size
 
 
 # ----------------DATA PREPARATION-----------#
@@ -59,7 +59,7 @@ print(f"\nInput Images: {targets}\n"
       f"path json: {path_raw_json}\n")
 
 # loading images and labels and concatenate to training set
-dataset_train, dataset_validate, tiles_large, tile_info = \
+dataset_train, dataset_validate, tile_info = \
     images_labels_loader(
         path_raw_data, name_raw_image, raw_image_number, path_raw_json,\
         tile_size, border, batch_size, path_model, max_neg_per_true)
@@ -71,13 +71,15 @@ print("\n--------------------------------------------"
       "\nStart training of CNN...")
 
 # training
-model, metrics = \
+model = \
     make_model_ide(
-        tile_size, border, batch_size)
+        tile_size, border)
 model, history = \
     train_ide(
         model_name, model, dataset_train, dataset_validate, epochs, path_model)
 
+del dataset_train, dataset_validate
+gc.collect()
 
 # ----------------SELF-PREDICTION-------------#
 
@@ -85,9 +87,13 @@ print("\n--------------------------------------------"
       "\nRunning evaluation")
 
 # predict om given tiles
+tiles_large = np.fromfile(path_model + 'tiles_large.npy')
 probabilities = \
     model.predict(
         tiles_large)
+
+del model, tiles_large
+gc.collect()
 
 # optimize threshold and save predictions
 tile_info[:, 3] = probabilities[:, 0]
