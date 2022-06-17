@@ -9,8 +9,9 @@ Before start, check the initialization to modify the parameters.
 # ------------INITIALIZATION----  CHANGE ME  ----#
 
 # info about inputs: images and labels
-image_path = '../data/raw/tree_detection/Dresden/Dresden_04.jpg'
-name = "Dresden_04"
+name = "Dresden_06"
+#image_path = f'../data/raw/images_unlabeled/{name}.jpg'
+image_path = f'../data/raw/tree_detection/{name[:-3]}/{name}.jpg'
 report_path = '../reports/'
 report_path = report_path + name + '/'
 
@@ -23,7 +24,7 @@ border = 15
 path_model_ide = '../models/'
 model_name_ide = "ide_55_th97"
 path_model_ide = path_model_ide + model_name_ide + '/'
-threshold_ide = 0.2
+threshold_ide = 0.1
 
 path_model_pos = '../models/'
 model_name_pos = "pos"
@@ -32,13 +33,7 @@ path_model_pos = path_model_pos + model_name_pos
 
 # --------------------SETUP--------------------------#
 
-import tensorflow as tf
-from keras import models
-import numpy as np
-
 from src.data.tree_loader \
-    import *
-from src.data.tree_data \
     import *
 from src.models.identification_model \
     import *
@@ -93,11 +88,6 @@ pixels_pred, tile_info = \
         pos_list=tiles_pos_location, pred_pos_tiles=pred_pos, tile_info=tile_info, border=border)
 
 draw_img_with_pixels(image, pixels_pred, report_path)
-
-# --------------------REPORTS------------------------#
-print("\n--------------------------------------------"
-      "\nSaving reports on prediction...")
-
 
 
 # ----------------------END--------------------------#

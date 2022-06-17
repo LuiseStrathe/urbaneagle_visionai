@@ -17,7 +17,7 @@ targets = (["Potsdam_01", 3, "labels_01.json"],
            ["Dresden_05", 0, "labels_01.json"],
            ["Dresden_06", 2, "labels_01.json"])
 ## number of augmented versions used for each image/target:
-num_aug = 1
+num_aug = 2
 
 # Processing specification:
 ## in pixel:
@@ -29,10 +29,10 @@ max_neg_per_true = 3
 
 # Model specification:
 path_model = '../models/ide_options/'
-model_name = "ide_04"
+model_name = "test"
 path_model = path_model + model_name + '/'
-batch_size = 30
-epochs = 1
+batch_size = 25
+epochs = 30
 
 # -----------------------SETUP-----------------------#
 
@@ -77,7 +77,6 @@ model = \
 model, history = \
     train_ide(
         model_name, model, dataset_train, dataset_validate, epochs, path_model)
-
 del dataset_train, dataset_validate
 gc.collect()
 
@@ -87,11 +86,10 @@ print("\n--------------------------------------------"
       "\nRunning evaluation")
 
 # predict om given tiles
-tiles_large = np.fromfile(path_model + 'tiles_large.npy')
+tiles_large = np.load(path_model + 'tiles_large.npy')
 probabilities = \
     model.predict(
         tiles_large)
-
 del model, tiles_large
 gc.collect()
 
@@ -100,6 +98,8 @@ tile_info[:, 3] = probabilities[:, 0]
 threshold, predictions = \
     ide_adj_pred(
         probabilities, tile_info, path_model)
+del probabilities
+gc.collect()
 
 render_history(history, path_model)
 perf_measure(tile_info, predictions)

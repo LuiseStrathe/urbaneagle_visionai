@@ -8,7 +8,6 @@ import numpy as np
 import json
 
 import tensorflow as tf
-import tqdm as tqdm
 from keras.utils import load_img
 from keras.utils import img_to_array
 from matplotlib import pyplot as plt
@@ -18,7 +17,8 @@ from src.helper.helper import get_resident_set_size
 
 #------------------------FUNCTIONS-----------------------#
 
-def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, path_raw_json):
+def import_trees(
+        path_raw_data, name_raw_data, raw_image_number, path_model, path_raw_json):
 
     print("\n---------"
           f"\nImporting image: {name_raw_data} (exact item in upload: {raw_image_number})")
@@ -81,7 +81,8 @@ def import_trees(path_raw_data, name_raw_data, raw_image_number, path_model, pat
     return image, labels, labels_unscaled, i_width, i_height
 
 
-def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
+def make_tiles_small(
+        image, image_name, i_width, i_height, tile_size, border):
 
     # prepare variables for both tile layers
     ## rounded down to full tiles ignoring the last tile if it is not full:
@@ -120,7 +121,7 @@ def make_tiles_small(image, image_name, i_width, i_height, tile_size, border):
             tile_info_initial[tile_num] = (i, j, 0, 0, v_start, h_start, 0, 0)
 
     print(f"   Tiles created: {tiles.shape}.\n")
-    return tile_info_initial, tile_dims
+    return tiles, tile_info_initial, tile_dims
 
 
 def label_tiles(
@@ -175,7 +176,8 @@ def label_tiles(
     return tile_info, tile_labels
 
 
-def expand_tiles(tile_info, tile_dims, border, image, tile_size):
+def expand_tiles(
+        tile_info, tile_dims, border, image, tile_size):
 
     image = np.array(image)
     tile_size_large = tile_size + 2 * border
@@ -190,7 +192,8 @@ def expand_tiles(tile_info, tile_dims, border, image, tile_size):
     return tiles_large
 
 
-def make_train_set(tiles_large, tile_labels, tile_size, border, batch_size):
+def make_train_set(
+        tiles_large, tile_labels, tile_size, border, batch_size):
 
     # define the training set
     tile_size = (tile_size + 2 * border)

@@ -3,10 +3,8 @@ These functions load and transform data for tree prediction.
 """
 
 #----------------------IMPORTS---------------------------#
-import matplotlib.pyplot as plt
-
+import os
 from src.data.tree_data import *
-from src.helper.helper import make_directories
 
 
 #------------------------FUNCTIONS-----------------------#
@@ -16,7 +14,8 @@ def image_load_tiles(
         image_path, tile_size, border, name, report_path):
 
     # prepare directories
-    make_directories(report_path)
+    if not os.path.exists(f"{report_path}"):
+        os.mkdir(f"{report_path}")
 
     # load the image
     image = load_img(image_path)
@@ -27,7 +26,7 @@ def image_load_tiles(
     image = image.astype('float32')
     image /= 255.0
     plt.imshow(image)
-    plt.imsave(report_path+'images/image.jpg', image)
+    plt.imsave(report_path+'image.jpg', image)
 
     # SLICE to tiles (=small tiles = moin tile reference)
     tiles, tile_info, tile_dims = \
@@ -56,7 +55,7 @@ def make_pixels_predicted(
     for pixel in range(len(pos_list)):
         tile_num = pos_list[pixel]
         pixels_pred[pixel, 0] += tile_info[tile_num, 4]
-        pixels_pred[pixel, 1] += tile_info[tile_num, 5] 
+        pixels_pred[pixel, 1] += tile_info[tile_num, 5]
 
     pixels_pred = pixels_pred.astype(int)
     print(f"pixels_pred: {pixels_pred.shape}")
