@@ -54,7 +54,7 @@ def import_trees(
 
     # add row for dedicated tile
     labels = labels.astype('int')
-    labels = np.hstack((labels, 0*labels[:, 0]))
+    labels = np.hstack((labels, 0 * labels[:, 0]))
 
     # ---------------------INFO-------------------------#
 
