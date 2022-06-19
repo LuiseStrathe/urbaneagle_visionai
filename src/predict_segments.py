@@ -9,9 +9,6 @@ Before start, check the initialization to modify the parameters.
 # ------------INITIALIZATION----  CHANGE ME  ----#
 
 # info about inputs: images and labels
-import matplotlib.pyplot as plt
-import numpy as np
-
 name = "Dresden_01"
 #image_path = f'../data/raw/images_unlabeled/{name}.jpg'
 image_path = f'../data/raw/segmentation/{name}/{name}.jpg'
@@ -31,6 +28,8 @@ threshold = 0.1
 # --------------------SETUP--------------------------#
 
 from tqdm import tqdm
+import numpy as np
+import matplotlib.pyplot as plt
 
 from src.data.seg_loader \
     import *
@@ -53,11 +52,21 @@ print("\n--------------------------------------------"
 model = tf.keras.models.load_model(path_model)
 
 probabilities = ([])
-for pair in tqdm(range(len(tiles) // 2)):
-    print(f"Predicting tile {pair*2}...")
-    prob = model.predict(tiles[pair*2:pair*2+1, :, :, :])
-    probabilities.append(prob)
-    pass
+#for pair in tqdm(range(len(tiles) // 2)):
+#    print(f"Predicting tile {pair*2} & {pair*2+1} of {len(tiles)}...")
+#    prob = model.predict(tiles[(pair*2):(pair*2+2), :, :, :])
+#    if pair == 0:
+#        probabilities = prob
+#    else: probabilities = np.concatenate((probabilities, prob), axis=0)
+
+for tile in tqdm(range(len(tiles))):
+    print(f"predicting tile {tile}")
+    prob = model.predict(np.array([tiles[tile, :, :, :]]))
+    if tile == 0:
+        probabilities = prob
+    else: probabilities = np.concatenate((probabilities, prob), axis=0)
+
+
 probabilities = np.array(probabilities)
 np.save(report_path + 'seg_pred.npy', probabilities)
 
@@ -72,10 +81,9 @@ def show_pred(image, probabilities, dims, report_path, name, tile_size):
     # dims: [num_tiles, num_ver, num_hor]
     segmentation = probabilities[:, :, :, :3].reshape(dims[1] * tile_size, dims[2] * tile_size, 3)
 
-    plt.imshow(segmentation.squeeze())
+    plt.imshow(segmentation)
     plt.title("Predicted segmentation")
     plt.show()
-    plt.imsave(report_path + 'seg_pred.png')
     plt.close()
 
 show_pred(image, probabilities, dims, report_path, name, tile_size)

@@ -20,10 +20,10 @@ tile_size = 512
 
 # Model specification:
 path_model = '../models/segmentation_options/'
-model_name = "test"
+model_name = f"seg_{tile_size}_new"
 path_model = path_model + model_name + '/'
-batch_size = 5
-epochs = 2
+batch_size = 2
+epochs = 10
 
 
 # -----------------------SETUP-----------------------#
@@ -46,12 +46,6 @@ tiles, dataset_train, dataset_validate, tile_info, dims =\
         path_input, targets,
         tile_size, batch_size, path_model)
 
-
-# make tiles
-
-
-# make dataset
-
     
 # ----------------TRAINING-------------------#
 
@@ -59,7 +53,6 @@ print("\n--------------------------------------------"
       "\nStart training of U-CNN...")
 
 # load pre-build resnet50 unet
-path_model = "../models/segmentation_options/512_resnet50_unet.h5"
 model = tf.keras.models.load_model(path_model)
 model.summary()
 
@@ -134,7 +127,7 @@ def render_history(history, path_model):
         plt.legend()
         plt.title(f"Our losses of {metric}")
         plt.show()
-        plt.savefig(f"{path_model}figures/{metric}.png")
+        plt.savefig(f"{path_model}{metric}.png")
 
     pass
 render_history(history, path_model)
@@ -143,4 +136,4 @@ render_history(history, path_model)
 # ---------------END--------------------------#
 tf.keras.backend.clear_session()
 print("\n---------------------------------------------------------------"
-      "\nTraining of IDENTIFICATION MODEL ended!")
+      "\nTraining of SEGMENTATION MODEL ended!")
