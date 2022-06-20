@@ -18,6 +18,12 @@ Model workflow and data-analysis
    then choose best model as fitted model according to f1(micro) score.
 5. Compute predictions and generate the reports.
 
+Deployment
+[![Streamlit App]\
+   (https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]\
+   (https://share.streamlit.io/[user name]/
+   ["urbaneagle_visionai"]/["main"]/["src"])
+
 
 Project Organization and folder structure
 -----------------------------------------
