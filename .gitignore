@@ -1,3 +1,9 @@
+# large data files
+notebooks/
+models/
+data/
+*.npy
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -7,6 +13,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+venv/
 env/
 build/
 develop-eggs/
@@ -75,12 +82,6 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# autokeras image regressor temps
-notebooks/image_regressor/
-models/ide_options/
-models/tmp
-
-# exclude data from source control by default
 
 # Mac OS-specific storage files
 .DS_Store
