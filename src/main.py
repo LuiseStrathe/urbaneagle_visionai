@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import time
+from PIL import Image
 
 ## ---------------------HEAD----------------------- ##
 
@@ -31,6 +32,11 @@ def load_data():
     return to_cache
 
 data_load_state = st.text('Loading data...')
+
+#st.image('/home/luise/Documents/DataScience/Projects/UrbanEagle/urbaneagle_visionai/data/raw/images_all/Dresden_01.png')
+img_original = Image.open('Dresden_01.jpg')
+st.image(img_original)
+
 
 
 'Starting prediction...'
