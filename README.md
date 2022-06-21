@@ -20,9 +20,8 @@ Model workflow and data-analysis
 
 Deployment
 [![Streamlit App]\
-   (https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]\
-   (https://share.streamlit.io/[user name]/
-   ["urbaneagle_visionai"]/["main"]/["src"])
+   (https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]
+   (https://share.streamlit.io/luisestrathe/urbaneagle_visionai/main/src/main.py)
 
 
 Project Organization and folder structure

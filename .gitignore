@@ -1,7 +1,10 @@
 # large data files
 notebooks/
 models/
-data/
+data/external
+data/interim
+data/raw/segmentation
+data/raw/tree_detection
 *.npy
 
 # Byte-compiled / optimized / DLL files
