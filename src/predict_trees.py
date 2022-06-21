@@ -9,9 +9,9 @@ Before start, check the initialization to modify the parameters.
 # ------------INITIALIZATION----  CHANGE ME  ----#
 
 # info about inputs: images and labels
-name = "Dresden_06"
+name = "Dresden_02"
 #image_path = f'../data/raw/images_unlabeled/{name}.jpg'
-image_path = f'../data/raw/tree_detection/{name[:-3]}/{name}.jpg'
+image_path = f'../data/raw/images_all/{name}.jpg'
 report_path = '../reports/'
 report_path = report_path + name + '/'
 
@@ -27,7 +27,7 @@ path_model_ide = path_model_ide + model_name_ide + '/'
 threshold_ide = 0.1
 
 path_model_pos = '../models/'
-model_name_pos = "pos"
+model_name_pos = "pos_options"
 path_model_pos = path_model_pos + model_name_pos
 
 

@@ -3,85 +3,86 @@ import numpy as np
 import pandas as pd
 import time
 from PIL import Image
+import os
+import webbrowser
 
-## ---------------------HEAD----------------------- ##
-
+## ---------------------HEAD + SIDEBAR------------- ##
 
 st.title("Urban Eagle")
-st.write("Vision AI for sustainability tracking in urban areas.")
+st.text("Vision AI for sustainability tracking in urban areas.")
+
+
+st.sidebar.title("Choose an aerial image!")
+image_name = st.sidebar.selectbox(
+  "City", ("Dresden_01", "Dresden_02", "Dresden_03","Dresden_04", "Dresden_05", "Dresden_06", "Potsdam_01", "Potsdam_02"))
+year = st.sidebar.selectbox(
+  "Year", ("2022",))
+st.sidebar.text("A comparison over years not yet available.")
+
+st.sidebar.text("")
+st.sidebar.text("")
+st.sidebar.text("")
+st.sidebar.text("")
+st.sidebar.text("--")
+repo = "https://github.com/LuiseStrathe/urbaneagle_visionai.git"
+if st.sidebar.button("Check out the urban eagle repository on GitHub 👈"):
+  webbrowser.open_new_tab(repo)
+st.sidebar.text("This project is a project of Luise Strathe \n"
+                "with thanks to Data Science Reatreat Berlin.")
+
+## -------------------FUNCTIONS--------------------- ##
 
 
 
-## -------------------COMMANDS--------------------- ##
+## -----------------Load & SHOW---------------------- ##
+img_original = Image.open(f'data/raw/images_all/{image_name}.jpg')
+img_trees = Image.open(f'reports/{image_name}/image_trees_bold.jpg')
+img_segments = Image.open(f'reports/{image_name}/prediction.png')
 
+## ----------------------MAIN------------------------ ##
+st.text("")
+st.text("")
+st.header(f"Urban Eagle prediction on: {image_name}")
+st.write(f'The image covers 750 by 1200 meters.\n')
+st.write(f'A resolution of 25 to 35 cm per pixel is required to perform the estimates.\n')
+
+st.image(img_original, caption=f'The original image')
+
+st.info('Currently predictions are loaded from file.\n'
+        'Live prediction on uploaded images is not yet accessible.')
+# TREES
+st.subheader("Find trees:")
+st.image(img_trees, caption=f'The image with identified trees')
+# info threshold
+
+# SEGMENTATION
+st.subheader("Evaluate surface:")
 left_column, right_column = st.columns(2)
-with right_column:
-  chosen = st.radio(
-    'What do you want to see?',
-    ("trees", "area types"))
-  st.write(f"You will see  {chosen} for the selected are!")
-left_column.radio("Choose a region", ("Dresden_01", "Potsdam_01"))
+left_column.image(img_segments, caption=f'The image with areas identified')
+right_column.text(
+  f"\n\nGreen: vegetation\n"
+  f"Blue: water\n"
+  f"Red: buildings\n"
+  f"Black: else (sealed surfaces, construction area, train tracks etc.)")
 
-st.button("Run me!")
 
-## ---------------PREDICTION------------------------ ##
+
+
+## -----------------BACKUP---------------------- ##
 
 # load data
-@st.cache
-def load_data():
-    return to_cache
+#@st.cache
+#def load_data():
+#    return to_cache
 
-data_load_state = st.text('Loading data...')
+### st.button("Run me!")
 
-#st.image('/home/luise/Documents/DataScience/Projects/UrbanEagle/urbaneagle_visionai/data/raw/images_all/Dresden_01.png')
-img_original = Image.open('Dresden_01.jpg')
-st.image(img_original)
+### slider
 
-
-
-'Starting prediction...'
-# Add a placeholder
-latest_iteration = st.empty()
-bar = st.progress(0)
-for i in range(20):
-  # Update the progress bar with each iteration.
-  latest_iteration.text(f'Iteration {i+1}')
-  bar.progress(i + 1)
-  time.sleep(0.1)
-'...and now we\'re done!'
+#x = st.slider('x')  # 👈 this is a widget
+#st.write('Selected threshold:', x, "%")
+#st.session_state.threshold = x
 
 
 
-
-
-### tree prediction
-
-x = st.slider('x')  # 👈 this is a widget
-st.write('Selected threshold:', x, "%")
-st.session_state.threshold = x
-
-
-
-## ---------------REPORT-------------------------- ##
-
-
-dataframe = pd.DataFrame(
-    np.random.randn(3, 5),
-    columns=('col %d' % i for i in range(5)))
-st.table(dataframe)
-
-chart_data = pd.DataFrame(
-     np.random.randn(5, 1),
-     columns=['Number of trees'])
-
-st.line_chart(chart_data)
-
-map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
-
-st.map(map_data)
-
-
-st.balloons()
 
