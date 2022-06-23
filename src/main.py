@@ -17,7 +17,7 @@ image_name = st.sidebar.selectbox(
            "Caracas_01",
            "Dresden_01", "Dresden_02", "Dresden_03", "Dresden_04", "Dresden_05", "Dresden_06",
            "Hanoi_01",
-           "Marakesh_01",
+           "Marrakesh_01",
            "Potsdam_01", "Potsdam_02"))
 year = st.sidebar.selectbox(
   "Year", ("2021",))
