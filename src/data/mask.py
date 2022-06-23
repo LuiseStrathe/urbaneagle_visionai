@@ -5,14 +5,14 @@ This script will add a mask file for an image.
 #----------------------INPUTS----------------------------#
 
 image_path = '../../data/raw/segmentation/'
-image_name = 'Dresden_01'
-input_prefix = '/task-10-annotation-9-by-1-tag-'
+image_name = 'Berlin_01'
+input_prefix = '/task-12-annotation-10-by-1-tag-'
 file_path_pre = image_path + image_name + input_prefix
 
 # files as RGB
-list_building = ["buildings-0.npy", "buildings-1.npy"]
-list_green = ["green-0.npy", "green-1.npy", "green-2.npy", "green-3.npy"]
-list_water = ["water-0.npy"]
+list_building = ["buildings-0.npy", "buildings-1.npy", "buildings-2.npy", "buildings-3.npy"]
+list_green = ["green-0.npy"]
+list_water = ["water-0.npy", "water-1.npy"]
 
 #----------------------IMPORTS---------------------------#
 

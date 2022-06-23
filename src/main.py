@@ -11,13 +11,16 @@ import webbrowser
 st.title("Urban Eagle")
 st.text("Vision AI for sustainability tracking in urban areas.")
 
-
 st.sidebar.title("Choose an aerial image!")
 image_name = st.sidebar.selectbox(
-  "City", ("Dresden_01", "Dresden_02", "Dresden_03","Dresden_04", "Dresden_05", "Dresden_06", "Potsdam_01", "Potsdam_02"))
+  "City", ("Berlin_01", "Berlin_02",
+           "Caracas_01",
+           "Dresden_01", "Dresden_02", "Dresden_03", "Dresden_04", "Dresden_05", "Dresden_06",
+           "Hanoi_01",
+           "Marakesh_01",
+           "Potsdam_01", "Potsdam_02"))
 year = st.sidebar.selectbox(
-  "Year", ("2022",))
-st.sidebar.text("A comparison over years not yet available.")
+  "Year", ("2021",))
 
 st.sidebar.text("")
 st.sidebar.text("")
@@ -27,8 +30,8 @@ st.sidebar.text("--")
 repo = "https://github.com/LuiseStrathe/urbaneagle_visionai.git"
 if st.sidebar.button("Check out the urban eagle repository on GitHub 👈"):
   webbrowser.open_new_tab(repo)
-st.sidebar.text("This project is a project of Luise Strathe \n"
-                "with thanks to Data Science Reatreat Berlin.")
+st.sidebar.text("Urban Eagle is a private project, open and free to use.")
+st.sidebar.text("New releases with new features will come soon.")
 
 ## -------------------FUNCTIONS--------------------- ##
 
@@ -43,13 +46,13 @@ img_segments = Image.open(f'reports/{image_name}/prediction.png')
 st.text("")
 st.text("")
 st.header(f"Urban Eagle prediction on: {image_name}")
-st.write(f'The image covers 750 by 1200 meters.\n')
+st.write(f'The image covers about 750 by 1200 meters.\n')
 st.write(f'A resolution of 25 to 35 cm per pixel is required to perform the estimates.\n')
 
 st.image(img_original, caption=f'The original image')
 
 st.info('Currently predictions are loaded from file.\n'
-        'Live prediction on uploaded images is not yet accessible.')
+        'Live prediction on uploaded images is not yet available.')
 # TREES
 st.subheader("Find trees:")
 st.image(img_trees, caption=f'The image with identified trees')
