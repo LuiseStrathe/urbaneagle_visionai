@@ -24,7 +24,7 @@ border = 15
 path_model_ide = '../models/'
 model_name_ide = "ide_55_th97"
 path_model_ide = path_model_ide + model_name_ide + '/'
-threshold_ide = 0.2
+threshold_ide = 0.9
 
 path_model_pos = '../models/'
 model_name_pos = "pos_options"

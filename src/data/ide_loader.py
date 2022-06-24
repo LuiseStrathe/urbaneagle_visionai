@@ -80,7 +80,7 @@ def image_label_load(
             path_raw_data, name_raw_image, raw_image_number, path_model, path_raw_json)
 
     # SLICE to tiles (=small tiles = moin tile reference)
-    tile_info_initial, tile_dims = \
+    tiles, tile_info_initial, tile_dims = \
         make_tiles_small(
             image, name_raw_image, i_width, i_height, tile_size, border)
 

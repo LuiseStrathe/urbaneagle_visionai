@@ -17,7 +17,7 @@ targets = (["Potsdam_01", 3, "labels_01.json"],
            ["Dresden_05", 0, "labels_01.json"],
            ["Dresden_06", 2, "labels_01.json"])
 ## number of augmented versions used for each image/target:
-num_aug = 2
+num_aug = 1
 
 # Processing specification:
 ## in pixel:

@@ -57,7 +57,7 @@ def draw_img_with_pixels(image, pixels, path=None):
         #image[ver_pixel, hor_pixel] = color
 
         # frame
-        expand = 6
+        expand = 9
         for horizontal in range(hor_pixel-expand, hor_pixel+expand):
             image[(ver_pixel-expand), (horizontal)] = color
             image[(ver_pixel+expand), (horizontal)] = color
@@ -65,6 +65,7 @@ def draw_img_with_pixels(image, pixels, path=None):
             image[(vertical), (hor_pixel-expand)] = color
             image[(vertical), (hor_pixel+expand)] = color
 
+    # draw full image
     plt.imshow(image)
     plt.title(f"Number of predicted trees: {len(pixels)}")
     if path is not None:
@@ -88,5 +89,7 @@ def draw_img_with_pixels(image, pixels, path=None):
     if path is not None:
         plt.imsave(path+'image_trees_bold.jpg', image)
     plt.close()
+
+
 
     pass

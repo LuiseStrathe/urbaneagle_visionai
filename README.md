@@ -3,22 +3,29 @@ UrbanEagle_VisionAI
 
 Let us open the learning eagle eye over cities to the public!
 
+
+about
+-----------------------------------------
+computer vision using GoogleEarth aerial images
+
+models: 
+1. Object detection of trees (models: ide + pos)
+2. Semantic segmentation of surfaces (model: seg)
+
+If you wish to use the model, please contact me via 
+<a target="_blank" href="https://www.linkedin.com/in/luise-strathe/">linkedin</a>.
 This model was initially developed during my participation at DSR (DataScienceRetreat Berlin) in Batch30.
 
 
-Model workflow and data-analysis
+deployment
 -----------------------------------------
+current restrictions
+- no live prediction
+- image resolution ~ 30 cm per pixel
+- no uploads or downloads implemented
+- object detection reliant on threshold setting
 
-1. Loading the raw data (training-data, test-data, labels) 
-2. Concatenate training- and test-data; 
-   Clean data e.g. convert str to int where applicable
-3. Encode data: reads in the values and the labels, applies target encoding and 
-   returns a dataframe which consists only of numeric columns.
-4. Model training: defin ML model and grid of attributes. Fit the model to the train values of each attribute set.
-   then choose best model as fitted model according to f1(micro) score.
-5. Compute predictions and generate the reports.
-
-Deployment
+**web app**
 [![Streamlit App]\
    (https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]
    (https://share.streamlit.io/luisestrathe/urbaneagle_visionai/main/src/main.py)
@@ -26,13 +33,13 @@ Deployment
 
 Project Organization and folder structure
 -----------------------------------------
+(not up to date)
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
+    │
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
@@ -40,14 +47,11 @@ Project Organization and folder structure
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks          <- Jupyter notebooks. Model training
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
     │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
@@ -66,9 +70,6 @@ Project Organization and folder structure
     │   │   │                 predictions
     │   │   ├── predict_model.py
     │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
