@@ -9,7 +9,7 @@ Before start, check the initialization to modify the parameters.
 # ------------INITIALIZATION----  CHANGE ME  ----#
 
 # info about inputs: images and labels
-name = "Dresden_06"
+name = "Dresden_01"
 #image_path = f'../data/raw/images_unlabeled/{name}.jpg'
 image_path = f'../data/raw/images_all/{name}.jpg'
 report_path = '../reports/'
