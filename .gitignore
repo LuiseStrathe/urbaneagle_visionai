@@ -1,5 +1,6 @@
 # large data files
-notebooks/
+notebooks/trees/interim
+notebooks/trees/models
 models/
 data/external
 data/interim
