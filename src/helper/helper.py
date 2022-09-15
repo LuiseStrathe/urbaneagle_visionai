@@ -1,5 +1,5 @@
 """
-These functions load and transform data for tree identification.
+These functions contain small helper features.
 """
 
 #----------------------IMPORTS---------------------------#
