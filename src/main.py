@@ -1,10 +1,7 @@
 import streamlit as st
-
 import numpy as np
 import pandas as pd
-import time
 from PIL import Image
-import os
 import webbrowser
 st.set_page_config(layout="wide")
 
@@ -39,7 +36,7 @@ st.sidebar.text("New releases with new features will come soon.")
 
 ## -----------------Load & SHOW---------------------- ##
 
-img_original = Image.open(f'data/raw/images_all/{image_name}.jpg')
+img_original = Image.open(f'data/raw/{image_name}.jpg')
 img_trees = Image.open(f'reports/{image_name}/image_trees_bold.jpg')
 img_segments = Image.open(f'reports/{image_name}/prediction.png')
 

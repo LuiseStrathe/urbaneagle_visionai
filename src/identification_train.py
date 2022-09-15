@@ -10,7 +10,7 @@ Before start, check the initialization to modify the parameters.
 
 # Input specification:
 ## path with all raw data
-path_input = '../data/raw/tree_detection/'
+path_input = '../data/input/tree_detection/'
 ## targets: Name of specific image, position in json to be considered
 targets = (["Potsdam_01", 3, "labels_01.json"],
            ["Dresden_04", 1, "labels_01.json"],

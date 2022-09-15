@@ -21,8 +21,8 @@ Second - **the semantic segmentation of the surface into relevant groups**
 
 <br>
 
-> ℹ️ Visit the deployed STREAMLIT web app here: 
-   https://share.streamlit.io/luisestrathe/urbaneagle_visionai/main/src/main.py
+> ℹ️ <a target="_blank" href="https://share.streamlit.io/luisestrathe/urbaneagle_visionai/main/src/main.py"> Visit the deployed STREAMLIT web app here! </a>
+   
 
 
 > ℹ️ <a target="_blank" href="https://github.com/LuiseStrathe/urbaneagle_visionai/blob/main/UrbanEagle_final.pdf"> Check out the project presentation </a>

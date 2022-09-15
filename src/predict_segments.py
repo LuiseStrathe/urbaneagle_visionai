@@ -11,7 +11,7 @@ Before start, check the initialization to modify the parameters.
 # info about inputs: images and labels
 name = "Potsdam_02"
 #image_path = f'../data/raw/images_unlabeled/{name}.jpg'
-image_path = f'../data/raw/images_all/{name}.jpg'
+image_path = f'../data/raw/{name}.jpg'
 report_path = '../reports/'
 report_path = report_path + name + '/'
 
