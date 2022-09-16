@@ -2,6 +2,7 @@
 notebooks/trees/interim
 notebooks/trees/models
 models/
+.venv
 data/external
 data/interim
 data/raw/segmentation
@@ -17,7 +18,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-venv/
+urban_eagle_virtual_env/
 env/
 build/
 develop-eggs/
