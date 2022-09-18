@@ -57,9 +57,9 @@ image_name = st.selectbox(
            #"South Afrika_01"
            ))
 
-img_original = Image.open(f'urbaneagle_visionai/data/raw/{image_name}.jpg')
-img_trees = Image.open(f'urbaneagle_visionai/reports/{image_name}/image_trees_bold.jpg')
-img_segments = Image.open(f'urbaneagle_visionai/reports/{image_name}/prediction.png')
+img_original = Image.open(f'data/raw/{image_name}.jpg')
+img_trees = Image.open(f'reports/{image_name}/image_trees_bold.jpg')
+img_segments = Image.open(f'reports/{image_name}/prediction.png')
 
 
 
