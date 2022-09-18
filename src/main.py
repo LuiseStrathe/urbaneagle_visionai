@@ -32,11 +32,11 @@ st.write("*The sustainability and climate impact of a city* \n"
 
 st.sidebar.title("ABOUT")
 
-repo = "https://github.com/LuiseStrathe/urbaneagle_visionai.git"
+repo = "https://github.com/LuiseStrathe/urbaneagle_visionai"
 if st.sidebar.button("👉  Check out the Urban Eagle repository on GitHub  👈"):
   webbrowser.open_new_tab(repo)
 
-linkedin = "https://www.linkedin.com/in/luise-strathe"
+linkedin = "https://www.linkedin.com/in/luise-strathe/"
 if st.sidebar.button("Find me on linkedIn"):
   webbrowser.open_new_tab(linkedin)
 
