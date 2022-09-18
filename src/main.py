@@ -32,19 +32,12 @@ st.write("*The sustainability and climate impact of a city* \n"
 
 st.sidebar.title("ABOUT")
 
-repo = ""
-if st.sidebar.button("👉  Check out the Urban Eagle repository on GitHub  👈"):
-    js = "window.open('https://github.com/LuiseStrathe/urbaneagle_visionai')"  # New tab or window
-    html = '<img src onerror="{}">'.format(js)
-    div = Div(text=html)
-    st.bokeh_chart(div)
 
-linkedin = "https://www.linkedin.com/in/luise-strathe/"
-if st.sidebar.button("Find me on linkedIn"):
-    js = "window.open('https://www.linkedin.com/in/luise-strathe/')"  # New tab or window
-    html = '<img src onerror="{}">'.format(js)
-    div = Div(text=html)
-    st.bokeh_chart(div)
+
+repo = ""
+st.sidebar.write("[👉  Check out the Urban Eagle repository on GitHub  👈](https://github.com/LuiseStrathe/urbaneagle_visionai)")
+st.sidebar.write("[See the project presentation on Youtube](https://www.youtube.com/watch?v=wfo3QW47t7c)")
+st.sidebar.write("[Visit me on LinkedIn](https://www.linkedin.com/in/luise-strathe/)")
 
 st.sidebar.write("Urban Eagle is a private project, open and free to use.")
 st.sidebar.write("New releases with new features will come soon.")
