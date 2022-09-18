@@ -1,6 +1,6 @@
 """
 ABOUT
-This script is used to train anew version of the IDENTIFICATION model.
+This script is used to train a new version of the IDENTIFICATION model.
 
 INFO
 Before start, check the initialization to modify the parameters.

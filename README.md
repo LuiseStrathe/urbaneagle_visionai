@@ -71,8 +71,8 @@ APPROACH
 
 3) OUTCOME
 
-- TREE DETECTION: Identification, count, localization of trees in the area
-- SEMANTIC SEGMENTATION: Surface is separated into four surface types
+- <b>TREE DETECTION:</b> Identification, count, localization of trees in the area
+- <b>SEMANTIC SEGMENTATION:</b> Surface is separated into four surface types
    (green: vegetation, red: buildings, blue: water, black: enclosed/unused area)
 - Visual representation for both applications
 - Results for example images are deployed via STEAMLIT (static)

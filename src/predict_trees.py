@@ -1,6 +1,6 @@
 """
 ABOUT
-This script is used to train anew version of the IDENTIFICATION model.
+This script is used to train anew version of the IDENTIFICATION model to find trees in an image.
 
 INFO
 Before start, check the initialization to modify the parameters.
@@ -10,7 +10,6 @@ Before start, check the initialization to modify the parameters.
 
 # info about inputs: images and labels
 name = "Dresden_01"
-#image_path = f'../data/raw/images_unlabeled/{name}.jpg'
 image_path = f'../data/raw/{name}.jpg'
 report_path = '../reports/'
 report_path = report_path + name + '/'
