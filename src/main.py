@@ -11,7 +11,7 @@ st.set_page_config(layout="wide")
 
 st.title("Urban Eagle")
 st.header("A computer vision project")
-st.write("This Project analysis aerial images of urban areas in regards \n"
+st.write("This project analyses aerial images of urban areas in regards \n"
           "of environmental metrics. As a proof of concept for many \n"
           "metrics, this project showcases two different analytical \n"
           "types based on computer vision machine learning.")
