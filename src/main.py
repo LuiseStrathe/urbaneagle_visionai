@@ -139,7 +139,7 @@ with col2:
 
 ###########################################################
 
-st.info('Currently predictions are loaded from file.)
+st.info('Currently predictions are loaded from file.')
 
 
 
