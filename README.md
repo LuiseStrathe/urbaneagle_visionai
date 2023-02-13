@@ -1,7 +1,7 @@
 UrbanEagle_VisionAI
 ==============================
 <br>
-<b>Let's open the learning eagle eye over cities to everyone who can make good use of it!</b>
+<b>Let's open the learning eagle eye over cities for everyone who can make good use of it!</b>
 
 <br>
 
@@ -32,7 +32,7 @@ Second - **the semantic segmentation of the surface into relevant groups**
 
 **ABOUT**
 
-Project owner: Luise Strathe
+X Luise Strathe
 
 This model was initially developed during my participation during my data science bootcamp at <a target="_blank" href="https://www.linkedin.com/in/luise-strathe/">Data Science Retreat Berlin</a> in Batch 30.
 
@@ -96,12 +96,12 @@ Furthermore images of large areas can (e.g. full cities) may be concatenated.</b
 
 **RESTRICTIONS & OUTLOOK**
 
-> ℹ️ The result of the portfolio project is an MVP. Based on this there is the potential to grow the project in several ways: e.g. implement more cities, timestamps and metrics or improve the user interface and user options (filters, visualizations).
-It is intended to share the results with groups/organizations which might show an interest to the project and collect feedback in terms of it's benefit and potential.
+> ℹ️ The result of the portfolio project is an proof of concept. Potential to grow: e.g. implement more cities, timestamps and metrics or improve the user interface and user options (filters, visualizations).
+If you are in an NGO or similar and have interest in profiting from this project, lease contact me.
 < 
 
 
-CURRENT RESTRICTIONSs:
+CURRENT RESTRICTIONS:
 - no live prediction
 - image resolution ~ 30 cm per pixel (free satellite images not available)
 - no uploads or downloads implemented

@@ -13,8 +13,8 @@ st.title("Urban Eagle")
 st.header("A computer vision project")
 st.write("This project analyses aerial images of urban areas in regards \n"
           "of environmental metrics. As a proof of concept for many \n"
-          "metrics, this project showcases two different analytical \n"
-          "types based on computer vision machine learning.")
+          "metrics, this project showcases two different types of \n"
+          "analysis based on computer vision.")
 st.write("**Vision**")
 st.write("*The sustainability and climate impact of a city* \n"
           "*can be described through many different indicators*.\n"
@@ -39,8 +39,6 @@ st.sidebar.write("[👉  Check out the Urban Eagle repository on GitHub  👈](h
 st.sidebar.write("[See the project presentation on Youtube](https://www.youtube.com/watch?v=wfo3QW47t7c)")
 st.sidebar.write("[Visit me on LinkedIn](https://www.linkedin.com/in/luise-strathe/)")
 
-st.sidebar.write("Urban Eagle is a private project, open and free to use.")
-st.sidebar.write("New releases with new features will come soon.")
 
 ## -----------------Load & SHOW---------------------- ##
 
@@ -141,8 +139,7 @@ with col2:
 
 ###########################################################
 
-st.info('Currently predictions are loaded from file.\n'
-        'Live prediction on uploaded images is not yet available.')
+st.info('Currently predictions are loaded from file.)
 
 
 
